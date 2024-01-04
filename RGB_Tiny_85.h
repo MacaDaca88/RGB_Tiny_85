@@ -1,3 +1,4 @@
+
 #ifndef RGB_TINY_85_H
 #define RGB_TINY_85_H
 
@@ -25,8 +26,11 @@ public:
   // Method to handle button presses and trigger corresponding actions
   void buttonCycle();
 
+  //Method to change the brightness 0-255
   void setBrightness();
 
+  // Display DEBUG on Serial if Available
+  void debug();
 
   // Static arrays representing RGB values for various predefined colors
   static int Red[3];
@@ -35,7 +39,6 @@ public:
   static int Magenta[3];
   static int Cyan[3];
   static int Yellow[3];
-  static int White[3];
   static int Orange[3];
   static int Purple[3];
   static int Pink[3];
@@ -51,14 +54,22 @@ public:
   static int Tomato[3];
 
 private:
-  // Private member variables
-  int _Red, _Green, _Blue, _Button, _Wait;   // Pins and delay values
-  int _LastButtonState;                      // Store the last button state
-  int _colorState;                           // Track the current color state for cycling
-  int _Brightness;
-  unsigned long _ButtonPressStartTime;       // Store the time when the button is pressed
-  unsigned long _LastButtonPressStartTime;   // Store the time of the last button press
-  void color(int red, int green, int blue);  // Private method to set the RGB LED color
+  int _Red, _Green, _Blue, _Button, _Wait;  // Pins and delay values
+  unsigned long _Time;                      // Store the UpTime since started
+  unsigned long _OldTime = 0;               // Stores last Time
+  unsigned long _OldButtonTime = 0;
+  unsigned long _ButtonTime;
+
+  int _ButtonState;                         // Store the input of button
+  int _LastButtonState;                     // Store the last button state
+  int _ColorState;                          // Track the current color state for cycling
+  int _Brightness;                          // Store the Brightness value
+  int _ButtonCounter = 0;                   // Store the Number of button presses
+  unsigned long _ButtonCounterTime = 0;
+  unsigned long _ButtonPressDuration = 0;       //Store the Counted time the button is held pressed
+  unsigned long _ButtonPressStartTime = 0;      // Store the time when the button is pressed
+  unsigned long _LastButtonPressStartTime = 0;  // Store the time of the last button press
+  void color(int red, int green, int blue);     // Private method to set the RGB LED color
 };
 
 #endif

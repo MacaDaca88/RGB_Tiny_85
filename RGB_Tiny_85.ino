@@ -5,6 +5,9 @@ RGB RGB(RED_PIN, GREEN_PIN, BLUE_PIN, BUTTON_PIN);
 
 // Setup function, called once when the microcontroller starts
 void setup() {
+#ifdef DEBUG
+  Serial.begin(9600);
+#endif
   // Turn off the RGB LED during setup
   RGB.off();
 }
@@ -13,4 +16,8 @@ void setup() {
 void loop() {
   // Continuously monitor the button and perform corresponding actions
   RGB.buttonCycle();
+
+#ifdef DEBUG
+  RGB.debug();
+#endif
 }
